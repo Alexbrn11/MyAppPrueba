@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventario - Registro</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5" style="max-width: 500px;">
+        <h3 class="text-center text-primary mb-4">Crear Cuenta</h3>
+        <form id="registroForm">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" id="nombre" required />
+            </div>
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="correo" required />
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" required />
+            </div>
+            <div class="mb-3">
+                <label for="rol" class="form-label">Rol</label>
+                <select class="form-select" id="rol" required>
+                    <option value="Operador">Operador</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Registrarse</button>
+            <div id="registroError" class="text-danger text-center mt-2"></div>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="/index.html">¿Ya tienes cuenta? Inicia sesión</a>
+        </div>
+    </div>
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    $(document).ready(function () {
+      $("#registroForm").on("submit", async function (e) {
+        e.preventDefault();
+
+        const nuevoUsuario = {
+          nombre: $("#nombre").val(),
+          correo: $("#correo").val(),
+          password: $("#password").val(),
+          rol: $("#rol").val()
+        };
+
+        try {
+          const res = await fetch("/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(nuevoUsuario)
+          });
+
+          if (res.ok) {
+            alert("Registro exitoso. Ahora puedes iniciar sesión.");
+            window.location.href = "/index.html";
+          } else {
+            const error = await res.text();
+            $("#registroError").text(error || "Error al registrar.");
+          }
+        } catch (err) {
+          console.error(err);
+          $("#registroError").text("Error de conexión con el servidor.");
+        }
+      });
+    });
+    </script>
+</body>
+</html>

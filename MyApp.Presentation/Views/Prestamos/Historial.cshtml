@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MyApp.Entities.Models.Prestamo>
+
+@{
+    ViewData["Title"] = "Historial de Préstamos";
+}
+
+<h2>Historial de Préstamos</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Artículo</th>
+            <th>Usuario</th>
+            <th>Fecha Entrega</th>
+            <th>Fecha Devolución</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Articulo.Nombre</td>
+                <td>@p.Usuario.Nombre</td>
+                <td>@p.FechaEntrega.ToShortDateString()</td>
+                <td>@p.FechaDevolucion.ToShortDateString()</td>
+                <td>@p.Estado</td>
+                <td>
+                    @if (p.Estado == "Pendiente")
+                    {
+                        <a asp-action="Aprobar" asp-route-id="@p.Id" class="btn btn-sm btn-success">Aprobar</a>
+                        <a asp-action="Rechazar" asp-route-id="@p.Id" class="btn btn-sm btn-danger">Rechazar</a>
+                    }
+                    @if (p.Estado == "Aprobado")
+                    {
+                        <a asp-action="Devolver" asp-route-id="@p.Id" class="btn btn-sm btn-warning">Registrar devolución</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

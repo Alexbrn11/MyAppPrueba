@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Historial de Préstamos</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Inventario</a>
+            <button class="btn btn-outline-light ms-auto" onclick="cerrarSesion()">Cerrar sesión</button>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="text-primary">Historial de Préstamos</h3>
+            <select id="filtroEstado" class="form-select w-auto" onchange="filtrarPrestamos()">
+                <option value="">Todos</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="Aprobado">Aprobado</option>
+                <option value="Devuelto">Devuelto</option>
+            </select>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Artículo</th>
+                        <th>Usuario</th>
+                        <th>Fecha Solicitud</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="prestamosBody">
+                    <!-- Llenado dinámico -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/prestamos.js"></script>
+</body>
+</html>
