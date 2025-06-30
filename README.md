@@ -87,7 +87,7 @@ Permite a usuarios autenticados:
 ## 🔧 Configuración Inicial
 
 1. Clona el repositorio:
-   git clone https://github.com/tuusuario/InventarioXWY.git
+   git clone https://github.com/Alexbrn11/MyAppPrueba
 
 2. Configura la cadena de conexión en appsettings.json:
    "ConnectionStrings": {
